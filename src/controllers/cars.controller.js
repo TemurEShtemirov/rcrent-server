@@ -39,9 +39,33 @@ export const getCarsByQuery = async (req, res) => {
 
 // POST a new car
 export const createCar = async (req, res) => {
-  const { body } = req;
+  const {
+    year_car,
+    gear_box,
+    hp,
+    volume_engine,
+    petrol,
+    one_two_days,
+    three_six_days,
+    from_seven_days,
+    pledge,
+  } = req.body;
+
   try {
-    const car = await Car.create(body);
+    const images = req.file ? req.file.filename : null;
+
+    const car = await Car.create({
+      images,
+      year_car,
+      gear_box,
+      hp,
+      volume_engine,
+      petrol,
+      one_two_days,
+      three_six_days,
+      from_seven_days,
+      pledge,
+    });
     res.status(201).json(car);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -51,13 +75,40 @@ export const createCar = async (req, res) => {
 // PUT (update) car by ID
 export const updateCarById = async (req, res) => {
   const { id } = req.params;
-  const { body } = req;
+  const {
+    images,
+    year_car,
+    gear_box,
+    hp,
+    volume_engine,
+    petrol,
+    one_two_days,
+    three_six_days,
+    from_seven_days,
+    pledge,
+  } = req.body;
   try {
-    await Car.update(body, {
-      where: {
-        id,
+    const images = req.file ? req.file.filename : null;
+
+    await Car.update(
+      {
+        images,
+        year_car,
+        gear_box,
+        hp,
+        volume_engine,
+        petrol,
+        one_two_days,
+        three_six_days,
+        from_seven_days,
+        pledge,
       },
-    });
+      {
+        where: {
+          id,
+        },
+      }
+    );
     res.status(204).send();
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -67,13 +118,40 @@ export const updateCarById = async (req, res) => {
 // PATCH (partial update) car by ID
 export const partialUpdateCarById = async (req, res) => {
   const { id } = req.params;
-  const { body } = req;
+  const {
+    images,
+    year_car,
+    gear_box,
+    hp,
+    volume_engine,
+    petrol,
+    one_two_days,
+    three_six_days,
+    from_seven_days,
+    pledge,
+  } = req.body;
   try {
-    await Car.update(body, {
-      where: {
-        id,
+    const images = req.file ? req.file.filename : null;
+
+    await Car.update(
+      {
+        images,
+        year_car,
+        gear_box,
+        hp,
+        volume_engine,
+        petrol,
+        one_two_days,
+        three_six_days,
+        from_seven_days,
+        pledge,
       },
-    });
+      {
+        where: {
+          id,
+        },
+      }
+    );
     res.status(204).send();
   } catch (error) {
     res.status(400).json({ message: error.message });

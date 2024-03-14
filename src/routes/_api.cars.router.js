@@ -1,5 +1,15 @@
 import { Router } from "express";
-import { createCar, deleteAllCars, deleteCarById, getAllCars, getCarById, getCarsByQuery, partialUpdateCarById, updateCarById } from "../controllers/cars.controller";
+import {
+  createCar,
+  deleteAllCars,
+  deleteCarById,
+  getAllCars,
+  getCarById,
+  getCarsByQuery,
+  partialUpdateCarById,
+  updateCarById,
+} from "../controllers/cars.controller.js";
+import upload from "../helper/upload.js";
 
 const CarRouter = Router();
 
@@ -12,13 +22,13 @@ CarRouter.get("/:id", getCarById);
 CarRouter.get("/query", getCarsByQuery);
 
 // POST a new car
-CarRouter.post("/", createCar);
+CarRouter.post("/", upload.array("images"), createCar);
 
 // PUT (update) car by ID
-CarRouter.put("/:id", updateCarById);
+CarRouter.put("/:id", upload.array("images"), updateCarById);
 
 // PATCH (partial update) car by ID
-CarRouter.patch("/:id", partialUpdateCarById);
+CarRouter.patch("/:id", upload.array("images"), partialUpdateCarById);
 
 // DELETE all cars
 CarRouter.delete("/", deleteAllCars);
@@ -26,5 +36,4 @@ CarRouter.delete("/", deleteAllCars);
 // DELETE car by ID
 CarRouter.delete("/:id", deleteCarById);
 
-
-export default CarRouter
+export default CarRouter;

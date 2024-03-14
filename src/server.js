@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import CarRouter from "./routes/_api.cars.router.js";
+import sequelize from "./config/db.config.js";
 
 async function bootstrap() {
   const app = express();
