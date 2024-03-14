@@ -1,9 +1,13 @@
 import express from "express";
 import "dotenv/config";
+import CarRouter from "./routes/_api.cars.router.js";
 
 async function bootstrap() {
   const app = express();
   const port = process.env.PORT || 2829;
+
+  app.use(express.json());
+  app.use("/car", CarRouter);
 
   try {
     await sequelize.authenticate();
