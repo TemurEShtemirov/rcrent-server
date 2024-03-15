@@ -44,7 +44,6 @@ export const createCar = async (req, res) => {
     year_car,
     gear_box,
     hp,
-    volume_engine,
     petrol,
     one_two_days,
     three_six_days,
@@ -61,6 +60,14 @@ export const createCar = async (req, res) => {
     images = req.files.map((file) => file.filename);
   }
 
+  // Define volume_engine based on car_type
+  let volume_engine;
+  if (car_type === "electric") {
+    volume_engine = null; // Set volume_engine to null for electric cars
+  } else {
+    volume_engine = req.body.volume_engine; // Include volume_engine for non-electric cars
+  }
+
   try {
     const car = await Car.create({
       images,
@@ -68,7 +75,7 @@ export const createCar = async (req, res) => {
       year_car,
       gear_box,
       hp,
-      volume_engine,
+      volume_engine, // Include volume_engine based on the condition above
       petrol,
       one_two_days,
       three_six_days,

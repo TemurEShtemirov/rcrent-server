@@ -30,12 +30,13 @@ const Car = sequelize.define(
       allowNull: false,
     },
     volume_engine: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.NUMERIC(10, 2), 
+      allowNull: true,
     },
     petrol: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: -1,
     },
     one_two_days: {
       type: DataTypes.NUMERIC(10, 2),
@@ -61,6 +62,19 @@ const Car = sequelize.define(
     car_type: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isElectricOrVolumeEngineNull() {
+          if (
+            this.car_type === "electric" &&
+            this.volume_engine !== null &&
+            this.volume_engine !== false
+          ) {
+            throw new Error(
+              "Volume engine must be null or false for electric cars"
+            );
+          }
+        },
+      },
     },
   },
   {
