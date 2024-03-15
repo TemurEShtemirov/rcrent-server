@@ -30,7 +30,7 @@ const Car = sequelize.define(
       allowNull: false,
     },
     volume_engine: {
-      type: DataTypes.NUMERIC(10, 2), 
+      type: DataTypes.NUMERIC(10, 2),
       allowNull: true,
     },
     petrol: {
@@ -67,7 +67,7 @@ const Car = sequelize.define(
           if (
             this.car_type === "electric" &&
             this.volume_engine !== null &&
-            this.volume_engine !== false
+            this.volume_engine !== false // Adjusted condition
           ) {
             throw new Error(
               "Volume engine must be null or false for electric cars"
