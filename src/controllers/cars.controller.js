@@ -18,7 +18,7 @@ export const getCarById = async (req, res) => {
     if (!car) {
       return res.status(404).json({ message: "Car not found" });
     }
-    res.json(car);
+    res.json({ car });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -40,6 +40,7 @@ export const getCarsByQuery = async (req, res) => {
 // POST a new car
 export const createCar = async (req, res) => {
   const {
+    title_car,
     year_car,
     gear_box,
     hp,
@@ -49,13 +50,21 @@ export const createCar = async (req, res) => {
     three_six_days,
     from_seven_days,
     pledge,
+    isRent,
+    car_type,
   } = req.body;
 
-  try {
-    const images = req.file ? req.file.filename : null;
+  let images = [];
 
+  // Check if there are uploaded files
+  if (req.files && req.files.length > 0) {
+    images = req.files.map((file) => file.filename);
+  }
+
+  try {
     const car = await Car.create({
       images,
+      title_car,
       year_car,
       gear_box,
       hp,
@@ -65,8 +74,10 @@ export const createCar = async (req, res) => {
       three_six_days,
       from_seven_days,
       pledge,
+      isRent,
+      car_type,
     });
-    res.status(201).json(car);
+    res.status(201).json({ car });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -76,7 +87,7 @@ export const createCar = async (req, res) => {
 export const updateCarById = async (req, res) => {
   const { id } = req.params;
   const {
-    images,
+    title_car,
     year_car,
     gear_box,
     hp,
@@ -86,6 +97,8 @@ export const updateCarById = async (req, res) => {
     three_six_days,
     from_seven_days,
     pledge,
+    isRent,
+    car_type,
   } = req.body;
   try {
     const images = req.file ? req.file.filename : null;
@@ -93,6 +106,7 @@ export const updateCarById = async (req, res) => {
     await Car.update(
       {
         images,
+        title_car,
         year_car,
         gear_box,
         hp,
@@ -102,6 +116,8 @@ export const updateCarById = async (req, res) => {
         three_six_days,
         from_seven_days,
         pledge,
+        isRent,
+        car_type,
       },
       {
         where: {
@@ -119,7 +135,7 @@ export const updateCarById = async (req, res) => {
 export const partialUpdateCarById = async (req, res) => {
   const { id } = req.params;
   const {
-    images,
+    title_car,
     year_car,
     gear_box,
     hp,
@@ -129,6 +145,8 @@ export const partialUpdateCarById = async (req, res) => {
     three_six_days,
     from_seven_days,
     pledge,
+    isRent,
+    car_type,
   } = req.body;
   try {
     const images = req.file ? req.file.filename : null;
@@ -136,6 +154,7 @@ export const partialUpdateCarById = async (req, res) => {
     await Car.update(
       {
         images,
+        title_car,
         year_car,
         gear_box,
         hp,
@@ -145,6 +164,8 @@ export const partialUpdateCarById = async (req, res) => {
         three_six_days,
         from_seven_days,
         pledge,
+        isRent,
+        car_type,
       },
       {
         where: {

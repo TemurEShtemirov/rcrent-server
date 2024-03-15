@@ -1,6 +1,8 @@
+// Import necessary modules
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
 
+// Define the User model
 const User = sequelize.define("User", {
   uuid: {
     type: DataTypes.UUID,
@@ -54,6 +56,21 @@ const User = sequelize.define("User", {
   return_location: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  rented_car_id: {
+    type: DataTypes.UUID,
+    references: {
+      model: "cars",
+      key: "uuid",
+    },
+  },
+  rental_start_date: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+  },
+  rental_end_date: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
   },
 });
 

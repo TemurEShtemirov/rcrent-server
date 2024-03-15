@@ -22,13 +22,13 @@ CarRouter.get("/:id", getCarById);
 CarRouter.get("/query", getCarsByQuery);
 
 // POST a new car
-CarRouter.post("/", upload.array("images"), createCar);
+CarRouter.post("/", upload.array("images", 5), createCar);
 
 // PUT (update) car by ID
-CarRouter.put("/:id", upload.array("images"), updateCarById);
+CarRouter.put("/:id", upload.array("images", 5), updateCarById);
 
 // PATCH (partial update) car by ID
-CarRouter.patch("/:id", upload.array("images"), partialUpdateCarById);
+CarRouter.patch("/:id", upload.array("images", 5), partialUpdateCarById);
 
 // DELETE all cars
 CarRouter.delete("/", deleteAllCars);

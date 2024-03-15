@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
 
 const Car = sequelize.define(
-  "Car",
+  "Cars",
   {
     uuid: {
       type: DataTypes.UUID,
@@ -11,6 +11,10 @@ const Car = sequelize.define(
     },
     images: {
       type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    title_car: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     year_car: {
@@ -29,8 +33,8 @@ const Car = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    pertol: {
-      type: DataTypes.BOOLEAN,
+    petrol: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     one_two_days: {
@@ -49,9 +53,19 @@ const Car = sequelize.define(
       type: DataTypes.NUMERIC(10, 2),
       allowNull: false,
     },
+    isRent: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+    car_type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     timestamps: true,
+    tableName: "cars",
   }
 );
 
